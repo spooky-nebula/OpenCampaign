@@ -1,11 +1,12 @@
 {
   "name": "opencampaign",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Open Campaign is a DnD campaign planner.",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "build": "./node_modules/.bin/electron-rebuild -w sqlite3 -p"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,12 @@
   },
   "homepage": "https://github.com/Oursickle/OpenCampaign#readme",
   "dependencies": {
-    "electron": "^4.1.0"
+    "electron": "^4.1.0",
+    "jquery": "^3.3.1",
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {
+    "electron-packager": "^13.1.1",
+    "electron-rebuild": "^1.8.4"
   }
 }

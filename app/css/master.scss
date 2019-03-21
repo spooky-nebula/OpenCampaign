@@ -1,0 +1,143 @@
+// I don't like the automatic padding on all elements
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+$font: Helvetica, sans-serif;
+$primary-color: #fff;
+$secondary-color: #121212;
+$primary-background-color: #343434;
+$border-color: #fff;
+$brand-color: #cb262c;
+$brand-background-color: #f9a03f;
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+body {
+  color: $primary-color;
+  font-family: $font;
+}
+
+.content {
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+}
+
+.wrapper {
+  &.campaign-list {
+    align-items: stretch;
+    background: $secondary-color;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding-top: 20px;
+    width: 200px;
+
+    .menu {
+      margin-bottom: 10px;
+
+      &:hover {
+        .logo {
+          animation: 1s ease infinite rotation;
+        }
+
+        .spacer {
+          width: 80%;
+        }
+
+        .options {
+          max-height: 100px;
+          width: 80%;
+        }
+      }
+
+      .logo {
+        display: block;
+        height: 50px;
+        margin: 0 auto;
+        padding: 5px;
+        transform: rotate(0deg);
+        transition: transform 2s ease-in-out;
+        width: 50px;
+      }
+
+      .spacer {
+        background: none;
+        height: 2px;
+        margin: 0 auto;
+        padding-top: 6px;
+        position: relative;
+        transition: width 0.3s ease-out;
+        width: 20%;
+
+        &::after {
+          background: $brand-color;
+          content: " ";
+          height: 2px;
+          left: 0;
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+      }
+
+      .options {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        margin: 0 auto;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out, width 0.3s ease-out;
+        width: 20%;
+
+        a {
+          color: $brand-color;
+          flex-grow: 1;
+          text-align: center;
+          white-space: nowrap;
+
+          &:hover {
+            background: $primary-background-color;
+          }
+        }
+      }
+    }
+
+    .campaign-list-item {
+      background: none;
+      color: $primary-color;
+      display: block;
+      padding: 5px;
+      position: relative;
+      transition: background 0.3s ease-out;
+
+      &:hover {
+        background: $primary-background-color;
+        cursor: pointer;
+      }
+
+      &.open {
+        background: $primary-background-color;
+      }
+    }
+  }
+
+  &.main-content {
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+}

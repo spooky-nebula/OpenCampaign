@@ -1,0 +1,117 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+body {
+  color: #fff;
+  font-family: Helvetica, sans-serif;
+}
+
+.content {
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+}
+
+.wrapper.campaign-list {
+  align-items: stretch;
+  background: #121212;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding-top: 20px;
+  width: 200px;
+}
+.wrapper.campaign-list .menu {
+  margin-bottom: 10px;
+}
+.wrapper.campaign-list .menu:hover .logo {
+  animation: 1s ease infinite rotation;
+}
+.wrapper.campaign-list .menu:hover .spacer {
+  width: 80%;
+}
+.wrapper.campaign-list .menu:hover .options {
+  max-height: 100px;
+  width: 80%;
+}
+.wrapper.campaign-list .menu .logo {
+  display: block;
+  height: 50px;
+  margin: 0 auto;
+  padding: 5px;
+  transform: rotate(0deg);
+  transition: transform 2s ease-in-out;
+  width: 50px;
+}
+.wrapper.campaign-list .menu .spacer {
+  background: none;
+  height: 2px;
+  margin: 0 auto;
+  padding-top: 6px;
+  position: relative;
+  transition: width 0.3s ease-out;
+  width: 20%;
+}
+.wrapper.campaign-list .menu .spacer::after {
+  background: #cb262c;
+  content: " ";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.wrapper.campaign-list .menu .options {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, width 0.3s ease-out;
+  width: 20%;
+}
+.wrapper.campaign-list .menu .options a {
+  color: #cb262c;
+  flex-grow: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+.wrapper.campaign-list .menu .options a:hover {
+  background: #343434;
+}
+.wrapper.campaign-list .campaign-list-item {
+  background: none;
+  color: #fff;
+  display: block;
+  padding: 5px;
+  position: relative;
+  transition: background 0.3s ease-out;
+}
+.wrapper.campaign-list .campaign-list-item:hover {
+  background: #343434;
+  cursor: pointer;
+}
+.wrapper.campaign-list .campaign-list-item.open {
+  background: #343434;
+}
+.wrapper.main-content {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+/*# sourceMappingURL=master.css.map */

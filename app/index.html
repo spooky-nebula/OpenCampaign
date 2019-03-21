@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>OpenCampaign</title>
-  </head>
-  <body>
-    <h1>OpenCampaign</h1>
-    <p>OpenCampaign is a simple opensource campaign builder for D&D game masters</p>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <title>OpenCampaign</title>
+  <link rel="stylesheet" href="./css/master.css">
+</head>
+
+<body>
+  <div class="content">
+    <div class="wrapper campaign-list">
+      <div class="menu">
+        <img class="logo" src="./assets/splash.png" title="Welcome comrade">
+        <div class="spacer">
+
+        </div>
+        <div class="options">
+          <a id="newCampaign" href="#" onclick="return true;">New Campaign</a>
+        </div>
+      </div>
+      <div class="campaign-list-item">
+        <p>OpenCampaign</p>
+      </div>
+    </div>
+    <div class="wrapper main-content">
+      <p>OpenCampaign is a simple opensource campaign builder for D&D game masters</p>
+    </div>
+  </div>
+  <div id="templates" hidden>
+    <div class="campaign-list-item">
+      <p class="campaign-list-item-name">TextHere</p>
+    </div>
+  </div>
+  <script>
+    require('./renderer.js')
+  </script>
+</body>
+
 </html>

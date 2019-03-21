@@ -25,3 +25,7 @@ I couldn't find a campaign planner online for free or opensource so I decided to
 
   [0cbd948b]: https://www.reddit.com/r/DnD/comments/7rdxbw/dd_tool_compendium_5e_updated_with_maps_plants/ "yote"
   [25622d1e]: https://www.dndbeyond.com/forums/dungeons-dragons-discussion/dungeon-masters-only/1201-campaign-management-tools "yeeten"
+
+### How can I contribute?
+
+Right now you can give me feedback and suggestions on our discord. [Join us](https://discord.gg/4H6Mfh)
