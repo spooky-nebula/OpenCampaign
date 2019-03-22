@@ -61,20 +61,13 @@ function createSplash() {
   return splash;
 }
 
+var splash;
+
 app.on("ready", () => {
   // Creates splash loading
-  let splash = createSplash();
+  splash = createSplash();
   // Creates the main window
   mainWindow = createMainWindow();
-  /*
-  This catched the main window being loaded and ready and destroys the entire
-  existance of the splash loading window
-  */
-  mainWindow.once("ready-to-show", () => {
-    splash.close();
-    splash = null;
-    mainWindow.show();
-  });
 });
 
 /*
@@ -99,24 +92,71 @@ app.on("activate", () => {
 
 /*
 ipcMain handles events triggered by the renderer.js after index.html has been
-loaded on the main window, in this case the event is just an event that is sent
-from the rendered to the main when the page has fully loaded
+loaded on the main window.
 */
-ipcMain.on("main-window-ready", () => {
-  console.log("Main Window Ready");
+
+/*
+Loading all the campaigns and sending the array to the mainWindow so the it can
+build a list of the campaigns.
+*/
+ipcMain.on("main-window-loading", (event) => {
+  // Path for the campaigns
+  let path = "./data/campaigns/";
+  // Data to be sent to mainWindow
+  let data = [];
+  // Tracker for the callback
+  let done = 0;
+  // Here we read the path and create an array of each directory in it
+  fs.readdirSync(path).forEach((file, index, array) => {
+    // Then we iterate between each directory and get the JSON of the campaign
+    fs.readFile(path + file + "/campaign.json", (err, content) => {
+      try {
+        // Here we try and parse the JSON as to send it to store it on our data
+        data.push(JSON.parse(content));
+        // done++ updates the tracker
+        done++;
+        /*
+        When done is the size of the array of campaigns that means it has read
+        all values and processed them and is ready to send them to the mainWindow
+        */
+        if (done >= array.length) {
+          // Here we send the event trigger to the mainWindow
+          mainWindow.webContents.send("main-window-will-be-ready", data);
+        }
+      } catch (e) {
+        /*
+        This is made in case the JSON has an error parsing then we gotta quit
+        the app as it is useless if it can't load the data needed
+        */
+        console.error(e);
+        // Create error window
+        createErrorWindow(function() {
+          // Quit the application
+          app.quit();
+        });
+      }
+    });
+  });
+  // If there is nothing in the data then it must be the first time
+  if (data.length == 0) {
+    // Virgin Screen
+    mainWindow.webContents.send("first-time-launch");
+  }
 });
 
-var modalWindow;
-
-ipcMain.on("new-campaign", () => {
-  console.log("New Campaign Event");
-  modalWindow = new BrowserWindow({
-    parent: mainWindow,
-    titleBarStyle: "hidden",
-    modal: true,
-    show: false,
-    backgroundColor: "#343434"
-  });
+/*
+This ipcMain the event is just an event that is sent
+from the rendered to the main when the page has fully loaded and ready
+*/
+ipcMain.on("main-window-ready", (event) => {
+  /*
+  This catched the main window being loaded and ready and destroys the entire
+  existance of the splash loading window
+  */
+  splash.close();
+  splash = null;
+  mainWindow.show();
+});
 
   modalWindow.loadFile("modal.html");
 
