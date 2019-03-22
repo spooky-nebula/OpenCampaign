@@ -5,6 +5,8 @@ const {
   BrowserWindow,
   ipcMain
 } = electron;
+const fs = require('fs');
+const mkdirp = require('mkdirp');
 
 var mainWindow;
 
@@ -158,16 +160,32 @@ ipcMain.on("main-window-ready", (event) => {
   mainWindow.show();
 });
 
-  modalWindow.loadFile("modal.html");
-
-  modalWindow.on("ready-to-show", () => {
-    modalWindow.show();
-    console.log("Showing Modal");
-  });
+ipcMain.on("new-campaign-will-be-done", (event, message) => {
+  console.log("1");
+  try {
+    let path = "./data/campaigns/" + message.campaignName;
+    console.log(path);
+    if (fs.existsSync(path)) {
+      console.log("2");
+      mainWindow.webContents.send("new-campaign-fuck");
+    } else {
+      mkdirp(path, function() {
+        console.log("3");
+        data = {
+          "campaignName": message.campaignName,
+          "campaignShort": "",
+          "campaignDescrip": ""
+        };
+        fs.writeFile(path + "/campaign.json", JSON.stringify(data), function() {
+          mainWindow.webContents.send("new-campaign-done");
+        });
+      });
+    }
+  } catch (e) {
+    console.log(e);
+  }
 });
 
-ipcMain.on("new-campaign-will-be-done", (event, data) => {
-  modalWindow.close();
-  modalWindow = null;
-  mainWindow.webContents.send("new-campaign-done");
+ipcMain.on("will-open-campaign", (event, message) => {
+  mainWindow.webContents.send("open-campaign");
 });

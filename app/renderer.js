@@ -68,6 +68,11 @@ function loadCampaigns() {
   $(".campaign-list").append(campaignHTML);
 }
 
-ipcRenderer.on("new-campaign-done", () => {
+ipcRenderer.on("new-campaign-done", (event) => {
   loadCampaigns();
+});
+
+ipcRenderer.on("new-campaign-fuck", (event) => {
+  $(tempCampaignHTML).remove();
+  tempCampaignHTML = null;
 });
