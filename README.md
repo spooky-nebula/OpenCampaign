@@ -28,7 +28,7 @@ I couldn't find a campaign planner online for free or opensource so I decided to
 
 ### Is this going to be cross-platform?
 
-Hopefully yes! Fortunately I have Windows, Linux and MacOS so I'll be able to produce for any of the platforms and test. Electron supports multiple platforms so it'll be simple.
+Hopefully yes! Fortunately I have Windows, Linux and MacOS so I'll be able to produce for any of the platforms and test. Electron supports multiple platforms so it'll be simple. Platforms unite!
 
 ### How can I contribute?
 
