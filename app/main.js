@@ -23,6 +23,8 @@ function createMainWindow() {
   let win = new BrowserWindow({
     width,
     height,
+    minWidth: 1024,
+    minHeight: 768,
     icon: "./assets/AppIcon.icns",
     titleBarStyle: "hidden",
     show: false,
@@ -110,8 +112,10 @@ ipcMain.on("new-campaign", () => {
   console.log("New Campaign Event");
   modalWindow = new BrowserWindow({
     parent: mainWindow,
+    titleBarStyle: "hidden",
     modal: true,
-    show: false
+    show: false,
+    backgroundColor: "#343434"
   });
 
   modalWindow.loadFile("modal.html");
