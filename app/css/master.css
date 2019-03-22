@@ -95,9 +95,12 @@ body {
   background: #343434;
 }
 .wrapper.campaign-list .campaign-list-item {
+  align-items: stretch;
   background: none;
   color: #fff;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
   padding: 5px;
   position: relative;
   transition: background 0.3s ease-out;
@@ -106,8 +109,36 @@ body {
   background: #343434;
   cursor: pointer;
 }
+.wrapper.campaign-list .campaign-list-item:hover .campaign-list-item-options {
+  max-height: 100px;
+}
 .wrapper.campaign-list .campaign-list-item.open {
   background: #343434;
+}
+.wrapper.campaign-list .campaign-list-item .campaign-list-item-name {
+  flex-grow: 1;
+  text-align: center;
+}
+.wrapper.campaign-list .campaign-list-item .campaign-list-item-options {
+  align-items: stretch;
+  color: #cb262c;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  font-size: 18px;
+  left: 0;
+  max-height: 100px;
+  position: relative;
+  text-align: center;
+  transition: max-height 0.3s ease-out;
+  white-space: nowrap;
+}
+.wrapper.campaign-list .campaign-list-item .campaign-list-item-options p {
+  flex-grow: 1;
+  padding: 5px;
+}
+.wrapper.campaign-list .campaign-list-item .campaign-list-item-options p:hover {
+  color: #fff;
 }
 .wrapper.main-content {
   flex-grow: 1;

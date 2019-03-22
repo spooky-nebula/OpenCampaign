@@ -118,9 +118,12 @@ body {
     }
 
     .campaign-list-item {
+      align-items: stretch;
       background: none;
       color: $primary-color;
-      display: block;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
       padding: 5px;
       position: relative;
       transition: background 0.3s ease-out;
@@ -128,10 +131,43 @@ body {
       &:hover {
         background: $primary-background-color;
         cursor: pointer;
+
+        .campaign-list-item-options {
+          max-height: 100px;
+        }
       }
 
       &.open {
         background: $primary-background-color;
+      }
+
+      .campaign-list-item-name {
+        flex-grow: 1;
+        text-align: center;
+      }
+
+      .campaign-list-item-options {
+        align-items: stretch;
+        color: $brand-color;
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+        font-size: 18px;
+        left: 0;
+        max-height: 100px;
+        position: relative;
+        text-align: center;
+        transition: max-height 0.3s ease-out;
+        white-space: nowrap;
+
+        p {
+          flex-grow: 1;
+          padding: 5px;
+
+          &:hover {
+            color: $primary-color;
+          }
+        }
       }
     }
   }
