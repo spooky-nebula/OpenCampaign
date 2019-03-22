@@ -42,6 +42,21 @@ function createMainWindow() {
   return win;
 }
 
+function createErrorWindow(callback) {
+
+  let win = new BrowserWindow({
+    width: 400,
+    height: 200,
+    icon: "./assets/AppIcon.icns",
+    show: true,
+    backgroundColor: "#343434"
+  });
+
+  win.on('closed', () => {
+    callback();
+  });
+}
+
 /*
 This function creates a frameless window with our "splatter dragon" rotating
 and indicates loading. This window is later destroyed with the main window has
