@@ -155,7 +155,7 @@ ipcMain.on("main-window-loading", (event) => {
     });
   });
   // If there is nothing in the data then it must be the first time
-  if (data.length == 0) {
+  if (fs.readdirSync(path).length == 0) {
     // Virgin Screen
     mainWindow.webContents.send("first-time-launch");
   }
@@ -170,8 +170,10 @@ ipcMain.on("main-window-ready", (event) => {
   This catched the main window being loaded and ready and destroys the entire
   existance of the splash loading window
   */
-  splash.close();
-  splash = null;
+  if (splash) {
+    splash.close();
+    splash = null;
+  }
   mainWindow.show();
 });
 

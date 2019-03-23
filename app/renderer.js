@@ -48,7 +48,7 @@ $(".campaign-list-item:not(#opencampaign)").click(function() {
   });
 });
 
-$("#opencampaign").click(function(){
+$("#opencampaign").click(function() {
   console.log("Gamer");
 });
 
