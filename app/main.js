@@ -10,6 +10,7 @@ const mkdirp = require('mkdirp');
 
 var mainWindow;
 
+const unallowedNames = ["CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"];
 /*
 This function creates a window the size of the user's screen and makes the icon
 of the app our "splatter dragon". It also makes the top bar disappear so only
@@ -125,8 +126,14 @@ ipcMain.on("main-window-loading", (event) => {
   let done = 0;
   // Here we read the path and create an array of each directory in it
   fs.readdirSync(path).forEach((file, index, array) => {
+    // Skip files
+    if (file.search(/\./) != -1) {
+      done++;
+      return;
+    }
     // Then we iterate between each directory and get the JSON of the campaign
     fs.readFile(path + file + "/campaign.json", (err, content) => {
+      if (err) throw err;
       try {
         // Here we try and parse the JSON as to send it to store it on our data
         data.push(JSON.parse(content));
@@ -177,32 +184,95 @@ ipcMain.on("main-window-ready", (event) => {
   mainWindow.show();
 });
 
+/*
+This event triggers when the user tries to create a new campaign.
+*/
 ipcMain.on("new-campaign-will-be-done", (event, message) => {
-  console.log("1");
-  try {
-    let path = "./data/campaigns/" + message.campaignName;
-    console.log(path);
-    if (fs.existsSync(path)) {
-      console.log("2");
+  // Replace replaces illegal characters for NTFS and other filesystems
+  messageFilter = message.campaignName.replace(/[^a-zA-Z ]/g, "_");
+  // Simple Tracker Counter for a callback
+  let done = 0;
+  /*
+  This forEach verifies if the name given is not in the unallowed names list for
+  windows systems.
+  */
+  unallowedNames.forEach((val, i, a) => {
+    /*
+    This checker is simple, it checks if the name given to the campaign is equals
+    to a unallowed name and if it isn't it adds 1 to the done counter. Since it
+    doesn't add a 1 to the done tracker then if the done isn't the same lenght
+    as the array with all the unallowed names then that means the user put a bad
+    name and the new campaign fucked up and should be canceled. If it's the same
+    lenght then the process can proceed.
+    */
+    if (messageFilter == val) {
       mainWindow.webContents.send("new-campaign-fuck");
     } else {
-      mkdirp(path, function() {
-        console.log("3");
-        data = {
-          "campaignName": message.campaignName,
-          "campaignShort": "",
-          "campaignDescrip": ""
-        };
-        fs.writeFile(path + "/campaign.json", JSON.stringify(data), function() {
-          mainWindow.webContents.send("new-campaign-done");
-        });
-      });
+      done++;
     }
-  } catch (e) {
-    console.log(e);
-  }
+    if (done >= a.length) {
+      // catch a read error from fs.exists as it might not have permissions
+      try {
+        // path is simple the directory where the campaigns are and the name
+        let path = "./data/campaigns/" + messageFilter;
+        // Check if the directory already exists
+        if (fs.existsSync(path)) {
+          // If it exists then the new campaign can't be done
+          mainWindow.webContents.send("new-campaign-fuck");
+        } else {
+          // Else create the directory and the file containing basic details
+          mkdirp(path, function() {
+            data = {
+              "campaignName": message.campaignName,
+              "campaignShort": "",
+              "campaignDescrip": "",
+              "classification": "",
+              "backstory": "",
+              "challengeRating": ""
+            };
+            // Setup of all the paths needed for storing campaign data
+            mkdirp(path + "/spells");
+            mkdirp(path + "/treasures");
+            mkdirp(path + "/deities");
+            mkdirp(path + "/items");
+            mkdirp(path + "/encounters");
+            mkdirp(path + "/npcs");
+            mkdirp(path + "/notes");
+            fs.writeFile(path + "/campaign.json", JSON.stringify(data), function() {
+              // Then send the done trigger to the mainWindow
+              mainWindow.webContents.send("new-campaign-done", data);
+            });
+          });
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  });
 });
 
 ipcMain.on("will-open-campaign", (event, message) => {
-  mainWindow.webContents.send("open-campaign");
+  // Replace replaces illegal characters for NTFS and other filesystems
+  messageFilter = message.campaignName.replace(/[^a-zA-Z ]/g, "_");
+    // Path for the selected campaign
+  let path = "./data/campaigns/" + messageFilter;
+  fs.readFile(path + "/campaign.json", (err, content) => {
+    try {
+      // Here we try and parse the JSON as to send it to store it on our data
+      let data = JSON.parse(content);
+      // Here we send the event trigger to the mainWindow
+      mainWindow.webContents.send("open-campaign", data);
+    } catch (e) {
+      /*
+      This is made in case the JSON has an error parsing then we gotta quit
+      the app as it is useless if it can't load the data needed
+      */
+      console.error(e);
+      // Create error window
+      createErrorWindow(function() {
+        // Quit the application
+        app.quit();
+      });
+    }
+  });
 });

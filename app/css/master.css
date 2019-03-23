@@ -37,6 +37,7 @@ body {
 }
 .wrapper.campaign-list .menu {
   margin-bottom: 10px;
+  user-select: none;
 }
 .wrapper.campaign-list .menu:hover .logo {
   animation: 1s ease infinite rotation;
@@ -76,9 +77,9 @@ body {
   top: 0;
 }
 .wrapper.campaign-list .menu .options {
-  align-items: center;
+  align-items: stretch;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 0 auto;
   max-height: 0;
   overflow: hidden;
@@ -88,6 +89,7 @@ body {
 .wrapper.campaign-list .menu .options a {
   color: #cb262c;
   flex-grow: 1;
+  padding: 6px 0;
   text-align: center;
   white-space: nowrap;
 }

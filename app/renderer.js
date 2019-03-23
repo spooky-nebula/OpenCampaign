@@ -12,12 +12,43 @@ loaded called main-window-ready
 */
 ipcRenderer.send("main-window-loading");
 
+// This triggers after the campaigns have been processed by main
 ipcRenderer.on("main-window-will-be-ready", (event, message) => {
-  ipcRenderer.send("main-window-ready");
+  // Basic callback tracker
+  let done = 0;
+  message.forEach((e) => {
+    // Append each campaign to the list with the correct names.
+    let campaignHTML = $("#templates .campaign-list-item").clone();
+    $(campaignHTML).find(".campaign-list-item-name").text(e.campaignName);
+    $(".campaign-list").append(campaignHTML);
+    done++;
+    // Callback activated when all the items have been appended
+    if (done >= message.length) {
+      ipcRenderer.send("main-window-ready");
+    }
+  });
 });
 
 ipcRenderer.on("first-time-launch", (event) => {
   ipcRenderer.send("main-window-ready");
+});
+
+// This is for when the user wants to load a campaign
+$("div.campaign-list").on("click", ".campaign-list-item.clickable", function() {
+  // Collect data
+  let data = {
+    "campaignName": $(this).find(".campaign-list-item-name").text()
+  };
+  // Send trigger to main
+  ipcRenderer.send("will-open-campaign", data);
+});
+
+ipcRenderer.on("open-campaign", (event, message) => {
+  console.log(message);
+});
+
+$("#opencampaign").click(function() {
+  // openHelp();
 });
 
 var tempCampaignHTML;
@@ -31,26 +62,13 @@ function newCampaign(callback) {
   $(campaignHTML).on("keypress", (e) => {
     if (e.which == 13) {
       $(campaignHTML).find(".campaign-list-item-name").prop("contenteditable", false);
+      $(campaignHTML).addClass(".clickable");
       tempCampaignHTML = campaignHTML;
-      callback($(campaignHTML).find(".campaign-list-item-name").text());
+      let data = $(campaignHTML).find(".campaign-list-item-name").text();
+      callback(data);
     }
   });
-
 }
-
-$(".campaign-list-item:not(#opencampaign)").click(function() {
-  let data = {
-    "campaignName": $(this).find(".campaign-list-item-name").text()
-  };
-  ipcRenderer.send("will-open-campaign", data);
-  ipcRenderer.once("open-campaign", (event, message) => {
-    console.log(message);
-  });
-});
-
-$("#opencampaign").click(function() {
-  console.log("Gamer");
-});
 
 $("#newCampaign").click(function() {
   newCampaign((name) => {
@@ -62,14 +80,8 @@ $("#newCampaign").click(function() {
   });
 });
 
-function loadCampaigns() {
-  let campaignHTML = $("#templates .campaign-list-item").clone();
-  $(campaignHTML).find(".campaign-list-item-name").text("data.campaignName");
-  $(".campaign-list").append(campaignHTML);
-}
-
-ipcRenderer.on("new-campaign-done", (event) => {
-  loadCampaigns();
+ipcRenderer.on("new-campaign-done", (event, data) => {
+  ipcRenderer.send("will-open-campaign", data);
 });
 
 ipcRenderer.on("new-campaign-fuck", (event) => {

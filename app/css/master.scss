@@ -48,6 +48,7 @@ body {
 
     .menu {
       margin-bottom: 10px;
+      user-select: none;
 
       &:hover {
         .logo {
@@ -95,9 +96,9 @@ body {
       }
 
       .options {
-        align-items: center;
+        align-items: stretch;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         margin: 0 auto;
         max-height: 0;
         overflow: hidden;
@@ -107,6 +108,7 @@ body {
         a {
           color: $brand-color;
           flex-grow: 1;
+          padding: 6px 0;
           text-align: center;
           white-space: nowrap;
 
