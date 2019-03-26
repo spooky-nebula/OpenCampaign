@@ -47,7 +47,6 @@ body {
 }
 .wrapper.campaign-list .menu:hover .options {
   max-height: 100px;
-  width: 80%;
 }
 .wrapper.campaign-list .menu .logo {
   display: block;
@@ -84,7 +83,7 @@ body {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-out, width 0.3s ease-out;
-  width: 20%;
+  width: 80%;
 }
 .wrapper.campaign-list .menu .options a {
   color: #cb262c;

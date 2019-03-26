@@ -10,6 +10,8 @@ const mkdirp = require('mkdirp');
 
 var mainWindow;
 
+const user_path = app.getPath("documents");
+
 const unallowedNames = ["CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"];
 /*
 This function creates a window the size of the user's screen and makes the icon
@@ -48,7 +50,7 @@ function createErrorWindow(callback) {
   let win = new BrowserWindow({
     width: 400,
     height: 200,
-    icon: "./assets/AppIcon.icns",
+    icon: "./assets/AppIcon.png",
     show: true,
     backgroundColor: "#343434"
   });
@@ -84,6 +86,20 @@ var splash;
 app.on("ready", () => {
   // Creates splash loading
   splash = createSplash();
+  // Should check if the data folder exists. If it doesn't we need to create it
+  let path = user_path + "/OpenCampaign";
+  if (!fs.existsSync(path)) {
+    mkdirp(path, () => {
+      mkdirp(path + "/campaigns");
+      mkdirp(path + "/settings", () => {
+        data = {
+          profile: "Pedro",
+          dev: true
+        };
+        fs.writeFileSync(path + "/settings/user.json", data);
+      });
+    });
+  }
   // Creates the main window
   mainWindow = createMainWindow();
 });
@@ -119,16 +135,21 @@ build a list of the campaigns.
 */
 ipcMain.on("main-window-loading", (event) => {
   // Path for the campaigns
-  let path = "./data/campaigns/";
+  let path = user_path + "/OpenCampaign/campaigns/";
   // Data to be sent to mainWindow
   let data = [];
   // Tracker for the callback
   let done = 0;
   // Here we read the path and create an array of each directory in it
   fs.readdirSync(path).forEach((file, index, array) => {
+    console.log("gamer? " + file);
     // Skip files
     if (file.search(/\./) != -1) {
       done++;
+      if (done >= array.length) {
+        // Here we send the event trigger to the mainWindow
+        mainWindow.webContents.send("main-window-will-be-ready", data);
+      }
       return;
     }
     // Then we iterate between each directory and get the JSON of the campaign
@@ -165,6 +186,8 @@ ipcMain.on("main-window-loading", (event) => {
   if (fs.readdirSync(path).length == 0) {
     // Virgin Screen
     mainWindow.webContents.send("first-time-launch");
+  } else if (fs.readdirSync(path).length == 1) {
+
   }
 });
 
@@ -214,7 +237,7 @@ ipcMain.on("new-campaign-will-be-done", (event, message) => {
       // catch a read error from fs.exists as it might not have permissions
       try {
         // path is simple the directory where the campaigns are and the name
-        let path = "./data/campaigns/" + messageFilter;
+        let path = user_path + "/OpenCampaign/campaigns/" + messageFilter;
         // Check if the directory already exists
         if (fs.existsSync(path)) {
           // If it exists then the new campaign can't be done
@@ -254,8 +277,8 @@ ipcMain.on("new-campaign-will-be-done", (event, message) => {
 ipcMain.on("will-open-campaign", (event, message) => {
   // Replace replaces illegal characters for NTFS and other filesystems
   messageFilter = message.campaignName.replace(/[^a-zA-Z ]/g, "_");
-    // Path for the selected campaign
-  let path = "./data/campaigns/" + messageFilter;
+  // Path for the selected campaign
+  let path = user_path + "/OpenCampaign/campaigns/" + messageFilter;
   fs.readFile(path + "/campaign.json", (err, content) => {
     try {
       // Here we try and parse the JSON as to send it to store it on our data
@@ -275,4 +298,8 @@ ipcMain.on("will-open-campaign", (event, message) => {
       });
     }
   });
+});
+
+ipcMain.on("will-open-help", () => {
+  mainWindow.webContents.send("open-help");
 });

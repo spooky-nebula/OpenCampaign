@@ -16,17 +16,21 @@ ipcRenderer.send("main-window-loading");
 ipcRenderer.on("main-window-will-be-ready", (event, message) => {
   // Basic callback tracker
   let done = 0;
-  message.forEach((e) => {
-    // Append each campaign to the list with the correct names.
-    let campaignHTML = $("#templates .campaign-list-item").clone();
-    $(campaignHTML).find(".campaign-list-item-name").text(e.campaignName);
-    $(".campaign-list").append(campaignHTML);
-    done++;
-    // Callback activated when all the items have been appended
-    if (done >= message.length) {
-      ipcRenderer.send("main-window-ready");
-    }
-  });
+  if (message.length == 0) {
+    ipcRenderer.send("main-window-ready");
+  } else {
+    message.forEach((e) => {
+      // Append each campaign to the list with the correct names.
+      let campaignHTML = $("#templates .campaign-list-item").clone();
+      $(campaignHTML).find(".campaign-list-item-name").text(e.campaignName);
+      $(".campaign-list").append(campaignHTML);
+      done++;
+      // Callback activated when all the items have been appended
+      if (done >= message.length) {
+        ipcRenderer.send("main-window-ready");
+      }
+    });
+  }
 });
 
 ipcRenderer.on("first-time-launch", (event) => {
@@ -48,7 +52,11 @@ ipcRenderer.on("open-campaign", (event, message) => {
 });
 
 $("#opencampaign").click(function() {
-  // openHelp();
+  ipcRenderer.send("will-open-help");
+});
+
+ipcRenderer.on("open-help", () => {
+  console.log("gottem");
 });
 
 var tempCampaignHTML;

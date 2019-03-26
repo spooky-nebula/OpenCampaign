@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "build": "./node_modules/.bin/electron-rebuild -w sqlite3 -p",
+    "rebuild": "./node_modules/.bin/electron-rebuild -w sqlite3 -p",
+    "produceMac": "./node_modules/.bin/electron-packager ./ --overwrite --platform=darwin --arch=x64 --icon=assets/AppIcon.icns --prune=true --out=release-builds",
+    "produceLinux": "./node_modules/.bin/electron-packager . electron-tutorial-app --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/AppIcon.png --prune=true --out=release-builds",
+    "produceWin": "./node_modules/.bin/electron-packager . electron-tutorial-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/AppIcon.ico --prune=true --out=release-builds --version-string.CompanyName=Oursoft --version-string.FileDescription=Oursoft --version-string.ProductName='OpenCampaign'",
     "cssDev": "cd css && sass --watch master.scss master.css"
   },
   "repository": {
