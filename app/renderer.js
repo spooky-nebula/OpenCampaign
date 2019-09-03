@@ -25,6 +25,7 @@ ipcRenderer.on("main-window-will-be-ready", (event, message) => {
       // Append each campaign to the list with the correct names.
       let campaignHTML = $("#templates .campaign-list-item").clone();
       $(campaignHTML).find(".campaign-list-item-name").text(e.campaignName);
+      $(campaignHTML).addClass("clickable");
       $(".campaign-list").append(campaignHTML);
       done++;
       // Callback activated when all the items have been appended
@@ -35,6 +36,10 @@ ipcRenderer.on("main-window-will-be-ready", (event, message) => {
   }
 });
 
+/*
+Since first time launch has no stuff to load the window just sends a the ready
+event to the main process
+*/
 ipcRenderer.on("first-time-launch", (event) => {
   ipcRenderer.send("main-window-ready");
 });
@@ -84,7 +89,7 @@ function newCampaign(callback) {
   $(campaignHTML).on("keypress", (e) => {
     if (e.which == 13) {
       $(campaignHTML).find(".campaign-list-item-name").prop("contenteditable", false);
-      $(campaignHTML).addClass(".clickable");
+      $(campaignHTML).addClass("clickable");
       tempCampaignHTML = campaignHTML;
       let data = $(campaignHTML).find(".campaign-list-item-name").text();
       callback(data);

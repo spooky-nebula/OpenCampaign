@@ -7,6 +7,17 @@ const {
 } = electron;
 const fs = require('fs');
 const mkdirp = require('mkdirp');
+const kramed = require('kramed');
+kramed.setOptions({
+  renderer: new kramed.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: true,
+  smartLists: true,
+  smartypants: false
+});
 
 var mainWindow;
 
@@ -142,7 +153,7 @@ ipcMain.on("main-window-loading", (event) => {
   let done = 0;
   // Here we read the path and create an array of each directory in it
   fs.readdirSync(path).forEach((file, index, array) => {
-    console.log("gamer? " + file);
+    console.log("Campaign: \"" + file + "\" loaded sucessfully");
     // Skip files
     if (file.search(/\./) != -1) {
       done++;
