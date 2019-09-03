@@ -12,6 +12,23 @@
     transform: rotate(359deg);
   }
 }
+@keyframes wavvy_text {
+  0% {
+    transform: rotate(0deg) translateY(5px) scale(1.01);
+  }
+  25% {
+    transform: rotate(1deg) translateY(0) scale(1);
+  }
+  50% {
+    transform: rotate(0deg) translateY(-5px) scale(0.99);
+  }
+  75% {
+    transform: rotate(-1deg) translateY(0) scale(1);
+  }
+  100% {
+    transform: rotate(0deg) translateY(5px) scale(1.01);
+  }
+}
 body {
   color: #fff;
   font-family: Helvetica, sans-serif;
@@ -23,6 +40,73 @@ body {
   flex-direction: row;
   height: 100vh;
   width: 100vw;
+}
+
+.help {
+  color: #99aee7;
+  flex-grow: 1;
+  flex-shrink: 1;
+  font-size: 1.6em;
+  overflow-y: scroll;
+  padding: 10px 30px;
+}
+.help h1 {
+  animation: 60s ease-in-out infinite wavvy_text;
+  color: #dd474d;
+  padding: 20px;
+  text-align: center;
+}
+.help h2 {
+  color: #fff;
+}
+.help h3 {
+  color: #cb262c;
+}
+.help h4 {
+  color: #cb262c;
+}
+.help h5 {
+  color: #cb262c;
+}
+.help h6 {
+  color: #cb262c;
+}
+.help p {
+  padding: 6px 6px 24px 12px;
+}
+.help a {
+  color: #cb262c;
+}
+.help a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.help ul {
+  padding-left: 6px;
+}
+.help li {
+  list-style: none;
+  padding: 6px;
+  text-decoration: none;
+}
+.help table {
+  padding: 6px;
+}
+.help table th {
+  color: #cb262c;
+  padding: 12px;
+}
+.help table tr {
+  background: #121212;
+  margin: 6px;
+}
+.help table td {
+  padding: 6px 6px 6px 12px;
+}
+.help code {
+  background: #121212;
+  color: #fff;
+  padding: 0 2px;
 }
 
 .wrapper.campaign-list {
@@ -63,7 +147,7 @@ body {
   margin: 0 auto;
   padding-top: 6px;
   position: relative;
-  transition: width 0.3s ease-out;
+  transition: width 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   width: 20%;
 }
 .wrapper.campaign-list .menu .spacer::after {
@@ -82,7 +166,7 @@ body {
   margin: 0 auto;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease-out, width 0.3s ease-out;
+  transition: max-height 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), width 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   width: 80%;
 }
 .wrapper.campaign-list .menu .options a {
@@ -141,9 +225,26 @@ body {
 .wrapper.campaign-list .campaign-list-item .campaign-list-item-options p:hover {
   color: #fff;
 }
+.wrapper.campaign-list .campaign-list-item .clickable {
+  user-select: none;
+}
 .wrapper.main-content {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   flex-shrink: 1;
+}
+.wrapper.main-content .campaign-details {
+  color: #fff;
+  flex-grow: 1;
+  height: 180px;
+}
+.wrapper.main-content .campaign-pages-list {
+  background: #343434;
+  color: #fff;
+  flex-grow: 1;
+  height: 180px;
 }
 
 /*# sourceMappingURL=master.css.map */
