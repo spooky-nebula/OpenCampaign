@@ -300,6 +300,15 @@ ipcMain.on("will-open-campaign", (event, message) => {
   });
 });
 
+// This triggers when the MainWindow wants to open the help file
 ipcMain.on("will-open-help", () => {
-  mainWindow.webContents.send("open-help");
+  /*
+  This reads the contents of help.md and produces a HTML string to pass onto
+  MainWindow
+  */
+  fs.readFile("./help/help.md", "utf8", (err, content) => {
+    if (err) throw err;
+    // When all is done send the HTML back to the MainWindow and call it a day
+    mainWindow.webContents.send("open-help", kramed(content));
+  });
 });

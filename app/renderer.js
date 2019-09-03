@@ -17,8 +17,10 @@ ipcRenderer.on("main-window-will-be-ready", (event, message) => {
   // Basic callback tracker
   let done = 0;
   if (message.length == 0) {
+    ipcRenderer.send("will-open-help");
     ipcRenderer.send("main-window-ready");
   } else {
+    ipcRenderer.send("will-open-help");
     message.forEach((e) => {
       // Append each campaign to the list with the correct names.
       let campaignHTML = $("#templates .campaign-list-item").clone();
@@ -49,14 +51,26 @@ $("div.campaign-list").on("click", ".campaign-list-item.clickable", function() {
 
 ipcRenderer.on("open-campaign", (event, message) => {
   console.log(message);
+  $(".help").hide("fast")
+  $(".campaign-details").show("fast")
 });
 
+/*
+Whenever the help button is pressed, this function triggers. For some reason I
+called the button #opencampaign
+*/
 $("#opencampaign").click(function() {
+  /*
+  This sends the message to the main process to read the help.md file and
+  produce html
+  */
   ipcRenderer.send("will-open-help");
 });
 
-ipcRenderer.on("open-help", () => {
-  console.log("gottem");
+// This triggers when the main process has finished processing the help.md file
+ipcRenderer.on("open-help", (event, content) => {
+  // Put the contect of the help.md in html on the help section of the app
+  $(".help").html(content);
 });
 
 var tempCampaignHTML;
