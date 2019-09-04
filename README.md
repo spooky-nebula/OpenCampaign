@@ -25,3 +25,11 @@ I couldn't find a campaign planner online for free or opensource so I decided to
 
   [0cbd948b]: https://www.reddit.com/r/DnD/comments/7rdxbw/dd_tool_compendium_5e_updated_with_maps_plants/ "yote"
   [25622d1e]: https://www.dndbeyond.com/forums/dungeons-dragons-discussion/dungeon-masters-only/1201-campaign-management-tools "yeeten"
+
+### Is this going to be cross-platform?
+
+Hopefully yes! Fortunately I have Windows, Linux and MacOS so I'll be able to produce for any of the platforms and test. Electron supports multiple platforms so it'll be simple. Platforms unite!
+
+### How can I contribute?
+
+Right now you can give me feedback and suggestions on our discord. [Join us](https://discord.gg/4H6Mfh)
