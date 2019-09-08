@@ -65,7 +65,7 @@ ipcRenderer.on("open-campaign", (event, message) => {
 Whenever the help button is pressed, this function triggers. For some reason I
 called the button #opencampaign
 */
-$("#opencampaign").click(function() {
+$("#opencampaignHelp").click(function() {
   /*
   This sends the message to the main process to read the help.md file and
   produce html
@@ -77,6 +77,8 @@ $("#opencampaign").click(function() {
 ipcRenderer.on("open-help", (event, content) => {
   // Put the contect of the help.md in html on the help section of the app
   $(".help").html(content);
+  $(".campaign-details").hide("fast")
+  $(".help").show("fast")
 });
 
 var tempCampaignHTML;
