@@ -81,40 +81,83 @@ ipcRenderer.on("open-help", (event, content) => {
   $(".help").show("fast")
 });
 
+/*
+This part is about creating a new campaign and the files for it.
+
+Creating a new campaign works like this:
+1. User clicks the new campaign button
+2. Renderer creates the HTML object for user to input the name of the campaign
+3. User presses ENTER (key 13) to finalize creation
+4. Renderer makes the HTML object not editable and clickable
+5. Renderer saves the object to a temporary variable
+6. Renderer sends information to Main
+7. Main confirms the information and saves information
+*/
+
+// This is the temporary variable to share the HTML object between functions
 var tempCampaignHTML;
 
+/*
+This function is to create, edit and add the button for a new campaign and
+callback the function with the HTML as parameters
+*/
 function newCampaign(callback) {
+  // Create button from template
   let campaignHTML = $("#templates .campaign-list-item").clone();
+  // Change the text to "Campaign Name Here"
   $(campaignHTML).find(".campaign-list-item-name").text("Campaign Name Here");
+  // Make the button editable
   $(campaignHTML).find(".campaign-list-item-name").prop("contenteditable", true);
+  // Append the object to the campaign list
   $(".campaign-list").append(campaignHTML);
+  // Focus the User's cursor to the button
   $(campaignHTML).find(".campaign-list-item-name").focus();
+  // Wait for the user to complete the name and press ENTER (key 13)
   $(campaignHTML).on("keypress", (e) => {
     if (e.which == 13) {
+      // Make the object nolonger editable and clickable
       $(campaignHTML).find(".campaign-list-item-name").prop("contenteditable", false);
       $(campaignHTML).addClass("clickable");
+      // Set the temporary variable to the new HTML object
       tempCampaignHTML = campaignHTML;
+      // Set and send the data (name of the campaign) to the callback function
       let data = $(campaignHTML).find(".campaign-list-item-name").text();
       callback(data);
     }
   });
 }
 
+/*
+This is a listener for the event of clicking a new campaign. Clicking that button
+should send Main the message to create a new folder for the campaign.
+*/
 $("#newCampaign").click(function() {
+  /*
+  Call the new campaign function and wait for callback with the name of the new
+  campaign
+  */
   newCampaign((name) => {
+    // Store the name of the campaign as a JSON object
     data = {
       "campaignName": name
     };
     console.log(data);
+    // Send that data to Main
     ipcRenderer.send("new-campaign-will-be-done", data);
   });
 });
 
+// Wait for the positive response from Main
 ipcRenderer.on("new-campaign-done", (event, data) => {
   ipcRenderer.send("will-open-campaign", data);
 });
 
+// Wait for the failiure response from Main
 ipcRenderer.on("new-campaign-fuck", (event) => {
   $(tempCampaignHTML).remove();
   tempCampaignHTML = null;
 });
+
+/*
+
+*/
