@@ -41,6 +41,7 @@ Since first time launch has no stuff to load the window just sends a the ready
 event to the main process
 */
 ipcRenderer.on("first-time-launch", (event) => {
+  ipcRenderer.send("will-open-help");
   ipcRenderer.send("main-window-ready");
 });
 
