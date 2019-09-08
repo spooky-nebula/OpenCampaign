@@ -203,8 +203,8 @@ ipcMain.on("main-window-loading", (event) => {
 });
 
 /*
-This ipcMain the event is just an event that is sent
-from the rendered to the main when the page has fully loaded and ready
+This ipcMain event is just an event that is sentfrom the rendered to the main
+when the page has fully loaded and ready
 */
 ipcMain.on("main-window-ready", (event) => {
   /*
