@@ -25,6 +25,7 @@ ipcRenderer.on("main-window-will-be-ready", (event, message) => {
       // Append each campaign to the list with the correct names.
       let campaignHTML = $("#templates .campaign-list-item").clone();
       $(campaignHTML).find(".campaign-list-item-name").text(e.campaignName);
+      $(campaignHTML).prop("folderName", e.folderName);
       $(campaignHTML).addClass("clickable");
       $(".campaign-list").append(campaignHTML);
       done++;
@@ -63,18 +64,32 @@ ipcRenderer.on("first-time-launch", (event) => {
 
 // This is for when the user wants to load a campaign
 $("div.campaign-list").on("click", ".campaign-list-item.clickable", function() {
+  startLoading();
   // Collect data
   let data = {
-    "campaignName": $(this).find(".campaign-list-item-name").text()
+    "campaignName": $(this).prop("folderName")
   };
+  setLoading(5);
   // Send trigger to main
   ipcRenderer.send("will-open-campaign", data);
 });
 
 ipcRenderer.on("open-campaign", (event, message) => {
+  setLoading(50);
   console.log(message);
+  // Store original campaign folder name
+  $(".campaign-main").prop("folderName", message.folderName)
+  // Start changing values
+  $(".campaign-name p").text(message.campaignName);
+  $(".campaign-short p").text(message.campaignShort);
+  $(".campaign-description p").text(message.campaignDescrip);
+  $(".campaign-challengeRating p").text(message.challengeRating);
+  $(".campaign-classification p").text(message.classification);
+  // End changing values and present to User
   $(".help").hide("fast")
   $(".campaign-details").show("fast")
+  setLoading(100);
+  stopLoading();
 });
 
 /*
@@ -165,6 +180,8 @@ $("#newCampaign").click(function() {
 
 // Wait for the positive response from Main
 ipcRenderer.on("new-campaign-done", (event, data) => {
+  $(tempCampaignHTML).prop("folderName", data.folderName);
+  data.campaignName = data.folderName;
   ipcRenderer.send("will-open-campaign", data);
 });
 
@@ -175,5 +192,49 @@ ipcRenderer.on("new-campaign-fuck", (event) => {
 });
 
 /*
-
+This part is about editing details about the campaign
 */
+
+$("#editMainDetails").click(function() {
+  if ($("#editMainDetails").prop("editing") == "false") {
+    $("#editMainDetails").prop("editing", "true");
+    $("#editMainDetails").css("background", "#cb262c");
+    $("#editMainDetails").text("✅ Edit Done");
+
+    $(".campaign-main .campaign-name p").prop("contenteditable", true);
+    $(".campaign-main .campaign-challengeRating p").prop("contenteditable", true);
+    $(".campaign-main .campaign-classification p").prop("contenteditable", true);
+    $(".campaign-main .campaign-description p").prop("contenteditable", true);
+
+  } else {
+    $("#editMainDetails").prop("editing", "false");
+    $("#editMainDetails").css("background", "#121212");
+    $("#editMainDetails").text("🖊 Edit Details");
+
+    $(".campaign-main .campaign-name p").prop("contenteditable", false);
+    $(".campaign-main .campaign-challengeRating p").prop("contenteditable", false);
+    $(".campaign-main .campaign-classification p").prop("contenteditable", false);
+    $(".campaign-main .campaign-description p").prop("contenteditable", false);
+
+    let data = {
+      "campaignName": $(".campaign-main .campaign-name p").text(),
+      "challengeRating": $(".campaign-main .campaign-challengeRating p").text(),
+      "classification": $(".campaign-main .campaign-classification p").text(),
+      "campaignDescrip": $(".campaign-main .campaign-description p").text(),
+      "campaignShort": "",
+      "folderName": $(".campaign-main").prop("folderName")
+    }
+
+    console.log(data);
+
+    ipcRenderer.send("edit-campaign-will-be-done", data);
+  }
+});
+
+ipcRenderer.on("edit-campaign-done", (event) => {
+  console.log("Edit Done Succesfully");
+});
+
+ipcRenderer.on("edit-campaign-fuck", (event) => {
+  console.log("Edit Failed Abismally");
+});

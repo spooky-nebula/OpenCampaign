@@ -119,18 +119,19 @@ body {
   padding-top: 20px;
   width: 200px;
 }
-.wrapper.campaign-list .menu {
-  margin-bottom: 10px;
-  user-select: none;
-}
-.wrapper.campaign-list .menu:hover .logo {
+.wrapper.campaign-list:hover .menu .logo {
   animation: 1s ease infinite rotation;
 }
-.wrapper.campaign-list .menu:hover .spacer {
+.wrapper.campaign-list:hover .menu .spacer {
   width: 80%;
 }
-.wrapper.campaign-list .menu:hover .options {
-  max-height: 100px;
+.wrapper.campaign-list:hover .menu .options {
+  max-height: 150px;
+}
+.wrapper.campaign-list .menu {
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  user-select: none;
 }
 .wrapper.campaign-list .menu .logo {
   display: block;
@@ -228,6 +229,20 @@ body {
 .wrapper.campaign-list .campaign-list-item .clickable {
   user-select: none;
 }
+.wrapper.loading-bar {
+  background: #121212;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 10px;
+}
+.wrapper.loading-bar .bar-fill {
+  background: #fff;
+  height: 0;
+  opacity: 0;
+  transition: height 0.3s ease-in, opacity 0.1s;
+}
 .wrapper.main-content {
   align-items: stretch;
   display: flex;
@@ -237,14 +252,115 @@ body {
 }
 .wrapper.main-content .campaign-details {
   color: #fff;
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
-  height: 180px;
+  position: relative;
 }
-.wrapper.main-content .campaign-pages-list {
+.wrapper.main-content .campaign-details .campaign-options-main {
+  position: relative;
+  margin: 6px;
+}
+.wrapper.main-content .campaign-details .campaign-options-main #editMainDetails {
+  float: right;
+  margin: 6px;
+  padding: 6px;
+  border-radius: 6px;
+  text-align: center;
+  vertical-align: middle;
+  background: #121212;
+  transform: scale(1);
+  transition: background 0.3s ease-out;
+  cursor: pointer;
+}
+.wrapper.main-content .campaign-details .campaign-options-main #editMainDetails:hover {
+  background: #fff !important;
+  transition: background 0.1s ease-out;
+  color: #343434;
+}
+.wrapper.main-content .campaign-details .campaign-options-main #deleteCampaign {
+  float: right;
+  margin: 6px;
+  padding: 6px;
+  border-radius: 6px;
+  text-align: center;
+  vertical-align: middle;
+  background: #121212;
+  transform: scale(1);
+  transition: background 0.3s ease-out;
+  cursor: pointer;
+}
+.wrapper.main-content .campaign-details .campaign-options-main #deleteCampaign:hover {
+  background: #fff !important;
+  transition: background 0.1s ease-out;
+  color: #343434;
+}
+.wrapper.main-content .campaign-details .campaign-main {
   background: #343434;
   color: #fff;
-  flex-grow: 1;
-  height: 180px;
+  flex-grow: 1 300px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+}
+.wrapper.main-content .campaign-details .campaign-main div:not(.spacer) {
+  background: #343434;
+  margin: 12px;
+  padding: 6px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+}
+.wrapper.main-content .campaign-details .campaign-main div:not(.spacer) p {
+  background: #121212;
+  padding: 6px;
+  height: 26px;
+  line-height: 26px;
+  font-size: 26px;
+}
+.wrapper.main-content .campaign-details .campaign-main div:not(.spacer) label {
+  padding: 6px;
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 24px;
+}
+.wrapper.main-content .campaign-details .campaign-main div.spacer {
+  flex: 3 0 0;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-name {
+  flex: 1 40%;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-name p {
+  width: 300px;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-description {
+  flex: 3 100%;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-description p {
+  width: 300px;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-challengeRating {
+  flex: 1 10%;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-challengeRating p {
+  width: 60px;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-classification {
+  flex: 1 20%;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-classification p {
+  width: 200px;
+}
+.wrapper.main-content .campaign-details .campaign-pages {
+  background: #343434;
+  color: #fff;
+  flex-grow: 7;
+}
+.wrapper.main-content .campaign-details .campaign-pages .campaign-pages-list {
+  background: #121212;
 }
 
 /*# sourceMappingURL=master.css.map */

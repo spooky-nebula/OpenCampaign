@@ -21,25 +21,54 @@
         </div>
       </div>
     </div>
+    <div class="wrapper loading-bar">
+      <div class="bar-fill">
+
+      </div>
+    </div>
     <div class="wrapper main-content">
       <div class="help">
 
       </div>
       <div class="campaign-details" hidden>
-        <div class="campaign-name">
-          Campaign Name
+        <div class="campaign-options-main">
+          <p id="editMainDetails" editing="false" title="Edit the details of this Campaign">🖊 Edit Details</p>
+          <p id="deleteCampaign" sure="false" title="Delete this Campaign">⭕ Delete Campaign</p>
         </div>
-        <div class="campaign-pages-list">
+        <div class="campaign-main" folderName="">
+          <div class="campaign-name">
+            <label for="campaign-name">Campaign Name</label>
+            <p>Campaign Short Description</p>
+          </div>
+          <div class="spacer">
 
+          </div>
+          <div class="campaign-challengeRating">
+            <label for="campaign-challengeRating">CR</label>
+            <p>Challenge Rating</p>
+          </div>
+          <div class="campaign-classification">
+            <label for="campaign-classification">Classification</label>
+            <p>Classification</p>
+          </div>
+          <div class="campaign-description">
+            <label for="campaign-description">Description</label>
+            <p>Campaign Description</p>
+          </div>
         </div>
-        <div class="campaign-page-details">
-          Campaign Name
+        <div class="campaign-pages">
+          <div class="campaign-pages-list">
+            Tabs/List
+          </div>
+          <div class="campaign-page-details">
+            Campaign Name
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div id="templates" hidden>
-    <div class="campaign-list-item">
+    <div class="campaign-list-item" folderName="">
       <p class="campaign-list-item-name">TextHere</p>
     </div>
     <div class="loading-splash">

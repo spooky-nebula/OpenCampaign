@@ -1,8 +1,8 @@
 // I don't like the automatic padding on all elements
 
 * {
-  margin: 0;
-  padding: 0;
+  margin         : 0;
+  padding        : 0;
   text-decoration: none;
 }
 $font: Helvetica, sans-serif;
@@ -48,30 +48,30 @@ $brand-background-color: #f9a03f;
 }
 
 body {
-  color: $primary-color;
+  color      : $primary-color;
   font-family: $font;
 }
 
 .content {
-  align-items: stretch;
-  display: flex;
+  align-items   : stretch;
+  display       : flex;
   flex-direction: row;
-  height: 100vh;
-  width: 100vw;
+  height        : 100vh;
+  width         : 100vw;
 }
 
 .help {
-  color: $treciary-color;
-  flex-grow: 1;
+  color      : $treciary-color;
+  flex-grow  : 1;
   flex-shrink: 1;
-  font-size: 1.6em;
-  overflow-y: scroll;
-  padding: 10px 30px;
+  font-size  : 1.6em;
+  overflow-y : scroll;
+  padding    : 10px 30px;
 
   h1 {
-    animation: 60s ease-in-out infinite wavvy_text;
-    color: $brand-color-light;
-    padding: 20px;
+    animation : 60s ease-in-out infinite wavvy_text;
+    color     : $brand-color-light;
+    padding   : 20px;
     text-align: center;
   }
 
@@ -103,7 +103,7 @@ body {
     color: $brand-color;
 
     &:hover {
-      color: $primary-color;
+      color          : $primary-color;
       text-decoration: underline;
     }
   }
@@ -113,8 +113,8 @@ body {
   }
 
   li {
-    list-style: none;
-    padding: 6px;
+    list-style     : none;
+    padding        : 6px;
     text-decoration: none;
   }
 
@@ -122,13 +122,13 @@ body {
     padding: 6px;
 
     th {
-      color: $brand-color;
+      color  : $brand-color;
       padding: 12px;
     }
 
     tr {
       background: $secondary-color;
-      margin: 6px;
+      margin    : 6px;
     }
 
     td {
@@ -138,85 +138,86 @@ body {
 
   code {
     background: $secondary-color;
-    color: $primary-color;
-    padding: 0 2px;
+    color     : $primary-color;
+    padding   : 0 2px;
   }
 }
 
 .wrapper {
   &.campaign-list {
-    align-items: stretch;
-    background: $secondary-color;
-    display: flex;
+    align-items   : stretch;
+    background    : $secondary-color;
+    display       : flex;
     flex-direction: column;
-    flex-grow: 0;
-    flex-shrink: 0;
-    padding-top: 20px;
-    width: 200px;
+    flex-grow     : 0;
+    flex-shrink   : 0;
+    padding-top   : 20px;
+    width         : 200px;
 
-    .menu {
-      margin-bottom: 10px;
-      user-select: none;
-
-      &:hover {
-        .logo {
-          animation: 1s ease infinite rotation;
-        }
-
-        .spacer {
-          width: 80%;
-        }
-
-        .options {
-          max-height: 100px;
-        }
-      }
-
+    &:hover .menu {
       .logo {
-        display: block;
-        height: 50px;
-        margin: 0 auto;
-        padding: 5px;
-        transform: rotate(0deg);
-        transition: transform 2s ease-in-out;
-        width: 50px;
+        animation: 1s ease infinite rotation;
       }
 
       .spacer {
-        background: none;
-        height: 2px;
-        margin: 0 auto;
+        width: 80%;
+      }
+
+      .options {
+        max-height: 150px;
+      }
+    }
+
+    .menu {
+      margin-bottom : 6px;
+      padding-bottom: 6px;
+      user-select   : none;
+
+      .logo {
+        display   : block;
+        height    : 50px;
+        margin    : 0 auto;
+        padding   : 5px;
+        transform : rotate(0deg);
+        transition: transform 2s ease-in-out;
+        width     : 50px;
+      }
+
+      .spacer {
+        background : none;
+        height     : 2px;
+        margin     : 0 auto;
         padding-top: 6px;
-        position: relative;
-        transition: width 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        width: 20%;
+        position   : relative;
+        transition : width 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        width      : 20%;
 
         &::after {
           background: $brand-color;
-          content: " ";
-          height: 2px;
-          left: 0;
-          position: absolute;
-          right: 0;
-          top: 0;
+          content   : " ";
+          height    : 2px;
+          left      : 0;
+          position  : absolute;
+          right     : 0;
+          top       : 0;
         }
       }
 
       .options {
-        align-items: stretch;
-        display: flex;
+        align-items   : stretch;
+        display       : flex;
         flex-direction: column;
-        margin: 0 auto;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), width 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        width: 80%;
+        margin        : 0 auto;
+        max-height    : 0;
+        overflow      : hidden;
+        transition    : max-height 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), width 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        width         : 80%;
 
         a {
-          color: $brand-color;
-          flex-grow: 1;
-          padding: 6px 0;
-          text-align: center;
+          color      : $brand-color;
+          flex-grow  : 1;
+          padding    : 6px 0;
+          text-align : center;
           white-space: nowrap;
 
           &:hover {
@@ -227,19 +228,19 @@ body {
     }
 
     .campaign-list-item {
-      align-items: stretch;
-      background: none;
-      color: $primary-color;
-      display: flex;
+      align-items   : stretch;
+      background    : none;
+      color         : $primary-color;
+      display       : flex;
       flex-direction: column;
-      overflow-x: hidden;
-      padding: 5px;
-      position: relative;
-      transition: background 0.3s ease-out;
+      overflow-x    : hidden;
+      padding       : 5px;
+      position      : relative;
+      transition    : background 0.3s ease-out;
 
       &:hover {
         background: $primary-background-color;
-        cursor: pointer;
+        cursor    : pointer;
 
         .campaign-list-item-options {
           max-height: 100px;
@@ -251,27 +252,27 @@ body {
       }
 
       .campaign-list-item-name {
-        flex-grow: 1;
+        flex-grow : 1;
         text-align: center;
       }
 
       .campaign-list-item-options {
-        align-items: stretch;
-        color: $brand-color;
-        display: flex;
+        align-items   : stretch;
+        color         : $brand-color;
+        display       : flex;
         flex-direction: row;
-        flex-grow: 1;
-        font-size: 18px;
-        left: 0;
-        max-height: 100px;
-        position: relative;
-        text-align: center;
-        transition: max-height 0.3s ease-out;
-        white-space: nowrap;
+        flex-grow     : 1;
+        font-size     : 18px;
+        left          : 0;
+        max-height    : 100px;
+        position      : relative;
+        text-align    : center;
+        transition    : max-height 0.3s ease-out;
+        white-space   : nowrap;
 
         p {
           flex-grow: 1;
-          padding: 5px;
+          padding  : 5px;
 
           &:hover {
             color: $primary-color;
@@ -300,24 +301,149 @@ body {
       transition: height 0.3s ease-in, opacity 0.1s;
     }
   }
+
   &.main-content {
-    align-items: stretch;
-    display: flex;
+    align-items   : stretch;
+    display       : flex;
     flex-direction: column;
-    flex-grow: 1;
-    flex-shrink: 1;
+    flex-grow     : 1;
+    flex-shrink   : 1;
 
     .campaign-details {
-      color: $primary-color;
-      flex-grow: 1;
-      height: 180px;
-    }
+      color         : $primary-color;
+      align-items   : stretch;
+      display       : flex;
+      flex-direction: column;
+      flex-grow     : 1;
+      position      : relative;
 
-    .campaign-pages-list {
-      background: $primary-background-color;
-      color: $primary-color;
-      flex-grow: 1;
-      height: 180px;
+      .campaign-options-main {
+        position: relative;
+        margin  : 6px;
+
+        #editMainDetails {
+          float         : right;
+          margin        : 6px;
+          padding       : 6px;
+          border-radius : 6px;
+          text-align    : center;
+          vertical-align: middle;
+          background    : $secondary-color;
+          transform     : scale(1);
+          transition    : background 0.3s ease-out;
+          cursor        : pointer;
+
+          &:hover {
+            background: $primary-color !important;
+            transition: background 0.1s ease-out;
+            color     : $primary-background-color;
+          }
+        }
+
+        #deleteCampaign {
+          float         : right;
+          margin        : 6px;
+          padding       : 6px;
+          border-radius : 6px;
+          text-align    : center;
+          vertical-align: middle;
+          background    : $secondary-color;
+          transform     : scale(1);
+          transition    : background 0.3s ease-out;
+          cursor        : pointer;
+
+          &:hover {
+            background: $primary-color !important;
+            transition: background 0.1s ease-out;
+            color     : $primary-background-color;
+          }
+        }
+      }
+
+      .campaign-main {
+        background : $primary-background-color;
+        color      : $primary-color;
+        flex-grow  : 1 300px;
+        display    : flex;
+        flex-flow  : row wrap;
+        align-items: flex-start;
+
+        div {
+          &:not(.spacer) {
+            background : $primary-background-color;
+            margin     : 12px;
+            padding    : 6px;
+            display    : flex;
+            flex-flow  : column nowrap;
+            align-items: stretch;
+
+            p {
+              background : $secondary-color;
+              padding    : 6px;
+              height     : 26px;
+              line-height: 26px;
+              font-size  : 26px;
+            }
+
+            label {
+              padding    : 6px;
+              display    : block;
+              text-align : left;
+              font-weight: bold;
+              font-family: monospace;
+              font-size  : 24px;
+            }
+          }
+
+          &.spacer {
+            flex: 3 0 0;
+          }
+        }
+
+        .campaign-name {
+          flex: 1 40%;
+
+          p {
+            width: 300px;
+          }
+        }
+
+        .campaign-description {
+          flex: 3 100%;
+
+          p {
+            width: 300px;
+          }
+        }
+
+        .campaign-challengeRating {
+          flex: 1 10%;
+
+          p {
+            width: 60px;
+          }
+        }
+
+        .campaign-classification {
+          flex: 1 20%;
+
+          p {
+            width: 200px;
+          }
+        }
+      }
+
+      .campaign-pages {
+        background: $primary-background-color;
+        color     : $primary-color;
+        flex-grow : 7;
+
+        .campaign-pages-list {
+          background: $secondary-color;
+        }
+
+        .campaign-page-details {}
+      }
     }
   }
 }

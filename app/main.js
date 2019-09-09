@@ -168,7 +168,14 @@ ipcMain.on("main-window-loading", (event) => {
       if (err) throw err;
       try {
         // Here we try and parse the JSON as to send it to store it on our data
-        data.push(JSON.parse(content));
+        let tempData = JSON.parse(content)
+        /*
+        Then we add the current folder name just in case the user changed it
+        since last save
+        */
+        tempData.folderName = file;
+        // Push all the temporary data over to the real data
+        data.push(tempData);
         // done++ updates the tracker
         done++;
         /*
@@ -262,7 +269,8 @@ ipcMain.on("new-campaign-will-be-done", (event, message) => {
               "campaignDescrip": "",
               "classification": "",
               "backstory": "",
-              "challengeRating": ""
+              "challengeRating": "",
+              "folderName": messageFilter
             };
             // Setup of all the paths needed for storing campaign data
             mkdirp(path + "/spells");
@@ -294,6 +302,8 @@ ipcMain.on("will-open-campaign", (event, message) => {
     try {
       // Here we try and parse the JSON as to send it to store it on our data
       let data = JSON.parse(content);
+      // Add the folder name to the data
+      data.folderName = messageFilter
       // Here we send the event trigger to the mainWindow
       mainWindow.webContents.send("open-campaign", data);
     } catch (e) {
@@ -322,4 +332,22 @@ ipcMain.on("will-open-help", () => {
     // When all is done send the HTML back to the MainWindow and call it a day
     mainWindow.webContents.send("open-help", kramed(content));
   });
+});
+
+
+ipcMain.on("edit-campaign-will-be-done", (event, message) => {
+  // path is simple the directory where the campaigns are and the name
+  let path = user_path + "/OpenCampaign/campaigns/" + message.folderName;
+  console.log(path);
+  // Check if the directory already exists
+  if (fs.existsSync(path)) {
+    fs.writeFile(path + "/campaign.json", JSON.stringify(message), function() {
+      // Then send the done trigger to the mainWindow
+      mainWindow.webContents.send("edit-campaign-done");
+    });
+  } else {
+    // If it doesn't exist then o kurwa
+    mainWindow.webContents.send("edit-campaign-fuck");
+
+  }
 });
