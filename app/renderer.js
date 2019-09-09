@@ -36,6 +36,22 @@ ipcRenderer.on("main-window-will-be-ready", (event, message) => {
   }
 });
 
+function startLoading() {
+  $("div.loading-bar .bar-fill").css("opacity", 1.0);
+  $("div.loading-bar .bar-fill").css("height", "0%");
+}
+
+function setLoading(percentage) {
+  $("div.loading-bar .bar-fill").css("height", percentage + "%");
+}
+
+function stopLoading() {
+  setTimeout(function() {
+    $("div.loading-bar .bar-fill").css("opacity", 0.0);
+    $("div.loading-bar .bar-fill").css("height", "0%");
+  }, 300);
+}
+
 /*
 Since first time launch has no stuff to load the window just sends a the ready
 event to the main process

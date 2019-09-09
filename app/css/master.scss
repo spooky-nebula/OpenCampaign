@@ -285,6 +285,21 @@ body {
     }
   }
 
+  &.loading-bar {
+    background    : $secondary-color;
+    display       : flex;
+    flex-direction: column;
+    flex-grow     : 0;
+    flex-shrink   : 0;
+    width         : 10px;
+
+    .bar-fill {
+      background: $primary-color;
+      height    : 0;
+      opacity   : 0;
+      transition: height 0.3s ease-in, opacity 0.1s;
+    }
+  }
   &.main-content {
     align-items: stretch;
     display: flex;
