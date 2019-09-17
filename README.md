@@ -32,4 +32,4 @@ Hopefully yes! Fortunately I have Windows, Linux and MacOS so I'll be able to pr
 
 ### How can I contribute?
 
-Right now you can give me feedback and suggestions on our discord. [Join us](https://discord.gg/4H6Mfh)
+Right now you can give me feedback and suggestions on our discord. [Join us](https://discord.gg/WyHbxSJ)
