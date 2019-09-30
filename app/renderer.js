@@ -78,7 +78,7 @@ ipcRenderer.on("open-campaign", (event, message) => {
   setLoading(50);
   console.log(message);
   // Store original campaign folder name
-  $(".campaign-main").prop("folderName", message.folderName)
+  $(".campaign-main").prop("folderName", message.folderName);
   // Start changing values
   $(".campaign-name p").text(message.campaignName);
   $(".campaign-short p").text(message.campaignShort);
@@ -86,8 +86,8 @@ ipcRenderer.on("open-campaign", (event, message) => {
   $(".campaign-challengeRating p").text(message.challengeRating);
   $(".campaign-classification p").text(message.classification);
   // End changing values and present to User
-  $(".help").hide("fast")
-  $(".campaign-details").show("fast")
+  $(".help").hide("fast");
+  $(".campaign-details").show("fast");
   setLoading(100);
   stopLoading();
 });
@@ -108,8 +108,8 @@ $("#opencampaignHelp").click(function() {
 ipcRenderer.on("open-help", (event, content) => {
   // Put the contect of the help.md in html on the help section of the app
   $(".help").html(content);
-  $(".campaign-details").hide("fast")
-  $(".help").show("fast")
+  $(".campaign-details").hide("fast");
+  $(".help").show("fast");
 });
 
 /*
@@ -223,7 +223,7 @@ $("#editMainDetails").click(function() {
       "campaignDescrip": $(".campaign-main .campaign-description p").text(),
       "campaignShort": "",
       "folderName": $(".campaign-main").prop("folderName")
-    }
+    };
 
     console.log(data);
 

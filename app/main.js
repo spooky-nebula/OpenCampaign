@@ -168,7 +168,7 @@ ipcMain.on("main-window-loading", (event) => {
       if (err) throw err;
       try {
         // Here we try and parse the JSON as to send it to store it on our data
-        let tempData = JSON.parse(content)
+        let tempData = JSON.parse(content);
         /*
         Then we add the current folder name just in case the user changed it
         since last save
@@ -303,7 +303,7 @@ ipcMain.on("will-open-campaign", (event, message) => {
       // Here we try and parse the JSON as to send it to store it on our data
       let data = JSON.parse(content);
       // Add the folder name to the data
-      data.folderName = messageFilter
+      data.folderName = messageFilter;
       // Here we send the event trigger to the mainWindow
       mainWindow.webContents.send("open-campaign", data);
     } catch (e) {
