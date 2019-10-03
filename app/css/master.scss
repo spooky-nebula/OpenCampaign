@@ -401,10 +401,10 @@ body {
         }
 
         .campaign-name {
-          flex: 1 40%;
+          flex: 1 30%;
 
           p {
-            width: 300px;
+            min-width: 200px;
           }
         }
 
@@ -412,12 +412,12 @@ body {
           flex: 3 100%;
 
           p {
-            width: 300px;
+            width: 400px;
           }
         }
 
         .campaign-challenge-rating {
-          flex: 1 10%;
+          flex: 1 15%;
 
           p {
             width: 60px;
