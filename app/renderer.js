@@ -83,7 +83,7 @@ ipcRenderer.on("open-campaign", (event, message) => {
   $(".campaign-name p").text(message.campaignName);
   $(".campaign-short p").text(message.campaignShort);
   $(".campaign-description p").text(message.campaignDescrip);
-  $(".campaign-challengeRating p").text(message.challengeRating);
+  $(".campaign-challenge-rating p").text(message.challengeRating);
   $(".campaign-classification p").text(message.classification);
   // End changing values and present to User
   $(".help").hide("fast");
@@ -192,42 +192,54 @@ ipcRenderer.on("new-campaign-fuck", (event) => {
 });
 
 /*
-This part is about editing details about the campaign
+This part is about editing details about the campaign.
 */
 
+/*
+For some reason, I am unable to add custom properties directly in the index.html
+and so have to initiate them in here like they are variables.
+*/
+$("#editMainDetails").prop("editing", "false");
+$("#deleteCampaign").prop("confirm", "false");
+
 $("#editMainDetails").click(function() {
-  if ($("#editMainDetails").prop("editing") == "false") {
-    $("#editMainDetails").prop("editing", "true");
-    $("#editMainDetails").css("background", "#cb262c");
-    $("#editMainDetails").text("✅ Edit Done");
+  switch ($("#editMainDetails").prop("editing")) {
+    case "false":
+      $("#editMainDetails").prop("editing", "true");
+      $("#editMainDetails").css("background", "#cb262c");
+      $("#editMainDetails").text("✅ Edit Done");
 
-    $(".campaign-main .campaign-name p").prop("contenteditable", true);
-    $(".campaign-main .campaign-challengeRating p").prop("contenteditable", true);
-    $(".campaign-main .campaign-classification p").prop("contenteditable", true);
-    $(".campaign-main .campaign-description p").prop("contenteditable", true);
+      $(".campaign-main .campaign-name p").prop("contenteditable", true);
+      $(".campaign-main .campaign-challenge-rating p").prop("contenteditable", true);
+      $(".campaign-main .campaign-classification p").prop("contenteditable", true);
+      $(".campaign-main .campaign-description p").prop("contenteditable", true);
+      break;
+    case "true":
+      $("#editMainDetails").prop("editing", "false");
+      $("#editMainDetails").css("background", "#121212");
+      $("#editMainDetails").text("🖊 Edit Details");
 
-  } else {
-    $("#editMainDetails").prop("editing", "false");
-    $("#editMainDetails").css("background", "#121212");
-    $("#editMainDetails").text("🖊 Edit Details");
+      $(".campaign-main .campaign-name p").prop("contenteditable", false);
+      $(".campaign-main .campaign-challenge-rating p").prop("contenteditable", false);
+      $(".campaign-main .campaign-classification p").prop("contenteditable", false);
+      $(".campaign-main .campaign-description p").prop("contenteditable", false);
 
-    $(".campaign-main .campaign-name p").prop("contenteditable", false);
-    $(".campaign-main .campaign-challengeRating p").prop("contenteditable", false);
-    $(".campaign-main .campaign-classification p").prop("contenteditable", false);
-    $(".campaign-main .campaign-description p").prop("contenteditable", false);
+      let data = {
+        "campaignName": $(".campaign-main .campaign-name p").text(),
+        "challengeRating": $(".campaign-main .campaign-challenge-rating p").text(),
+        "classification": $(".campaign-main .campaign-classification p").text(),
+        "campaignDescrip": $(".campaign-main .campaign-description p").text(),
+        "campaignShort": "",
+        "folderName": $(".campaign-main").prop("folderName")
+      };
 
-    let data = {
-      "campaignName": $(".campaign-main .campaign-name p").text(),
-      "challengeRating": $(".campaign-main .campaign-challengeRating p").text(),
-      "classification": $(".campaign-main .campaign-classification p").text(),
-      "campaignDescrip": $(".campaign-main .campaign-description p").text(),
-      "campaignShort": "",
-      "folderName": $(".campaign-main").prop("folderName")
-    };
+      ipcRenderer.send("edit-campaign-will-be-done", data);
+      break;
+    default:
+      $("#editMainDetails").prop("editing", "false");
+      $("#editMainDetails").css("background", "#121212");
+      $("#editMainDetails").text("🖊 Edit Details");
 
-    console.log(data);
-
-    ipcRenderer.send("edit-campaign-will-be-done", data);
   }
 });
 
@@ -237,4 +249,39 @@ ipcRenderer.on("edit-campaign-done", (event) => {
 
 ipcRenderer.on("edit-campaign-fuck", (event) => {
   console.log("Edit Failed Abismally");
+});
+
+$("#deleteCampaign").click(function() {
+  /*
+   */
+  switch ($("#deleteCampaign").prop("confirm")) {
+    case "false":
+      $("#deleteCampaign").prop("confirm", "true");
+      $("#deleteCampaign").css("background", "#cb262c");
+      $("#deleteCampaign").text("⭕ Confirm? ⭕");
+      break;
+    case "true":
+      $("#deleteCampaign").prop("confirm", "false");
+      $("#deleteCampaign").css("background", "#121212");
+      $("#deleteCampaign").text("⭕ Delete Campaign");
+
+      let data = {};
+
+      data.folderName = $(".campaign-main").prop("folderName");
+      ipcRenderer.send("delete-campaign-will-be-done", data);
+      break;
+    default:
+      $("#deleteCampaign").prop("confirm", "false");
+      $("#deleteCampaign").css("background", "#121212");
+      $("#deleteCampaign").text("⭕ Delete Campaign");
+  }
+});
+
+ipcRenderer.on("delete-campaign-done", (event) => {
+  console.log("Delete Done Succesfully");
+
+});
+
+ipcRenderer.on("delete-campaign-fuck", (event) => {
+  console.log("Delete Failed Abismally");
 });

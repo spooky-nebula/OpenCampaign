@@ -6,6 +6,7 @@ const {
   ipcMain
 } = electron;
 const fs = require('fs');
+const rimraf = require("rimraf");
 const mkdirp = require('mkdirp');
 const kramed = require('kramed');
 kramed.setOptions({
@@ -349,5 +350,22 @@ ipcMain.on("edit-campaign-will-be-done", (event, message) => {
     // If it doesn't exist then o kurwa
     mainWindow.webContents.send("edit-campaign-fuck");
 
+  }
+});
+
+ipcMain.on("delete-campaign-will-be-done", (event, message) => {
+  // path is simple the directory where the campaigns are and the name
+  let path = user_path + "/OpenCampaign/campaigns/" + message.folderName;
+  console.log(path);
+  // Check if the directory already exists
+  if (fs.existsSync(path)) {
+    // Unlink the directory should delete it
+    rimraf(path, function() {
+      // Then send the done trigger to the mainWindow
+      mainWindow.webContents.send("delete-campaign-done");
+    });
+  } else {
+    // If it doesn't exist then o kurwa
+    mainWindow.webContents.send("delete-campaign-fuck");
   }
 });
