@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>OpenCampaign</title>
+  <link rel="stylesheet" href="./css/master.css">
+</head>
+
+<body>
+  <div class="wrapper campaign-list">
+    <div class="menu">
+      <img class="logo" src="./assets/splash.png" title="Welcome comrade">
+      <div class="spacer">
+
+      </div>
+      <div class="options">
+        <a id="newCampaign" href="#" onclick="return true;">New Campaign</a>
+        <a id="opencampaignHelp" href="#" onclick="return true;">Help</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="templates" hidden>
+    <div class="campaign-list-item" folderName="">
+      <p class="campaign-list-item-name">TextHere</p>
+    </div>
+    <div class="loading-splash">
+    </div>
+    <div class="campaign-pages-list-item">
+      <a onclick="return true;" href="#"></a>
+    </div>
+  </div>
+  <script>
+    require('./menurenderer.js')
+  </script>
+</body>
+
+</html>

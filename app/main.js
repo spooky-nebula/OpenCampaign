@@ -21,6 +21,8 @@ kramed.setOptions({
 });
 
 var mainWindow;
+var menuWindow;
+var helpWindow;
 
 const user_path = app.getPath("documents");
 
@@ -49,6 +51,50 @@ function createMainWindow() {
   });
 
   win.loadFile("index.html");
+
+  win.on('closed', () => {
+    win = null;
+  });
+
+  return win;
+}
+
+function createMenuWindow() {
+
+  let win = new BrowserWindow({
+    Width: 200,
+    Height: 400,
+    icon: "./assets/AppIcon.icns",
+    titleBarStyle: "hidden",
+    show: false,
+    resizable: false,
+    maximizable:false,
+    backgroundColor: "#343434"
+  });
+
+  win.loadFile("menu.html");
+
+  win.on('closed', () => {
+    win = null;
+  });
+
+  return win;
+}
+
+function createHelpWindow() {
+
+  let win = new BrowserWindow({
+    Width: 768,
+    Height: 768,
+    icon: "./assets/AppIcon.icns",
+    titleBarStyle: "hidden",
+    show: false,
+    resizable: false,
+    maximizable:false,
+    backgroundColor: "#343434"
+  });
+
+  win.loadFile("help.html");
 
   win.on('closed', () => {
     win = null;
@@ -112,8 +158,8 @@ app.on("ready", () => {
       });
     });
   }
-  // Creates the main window
-  mainWindow = createMainWindow();
+  // Creates the menu window
+  menuWindow = createMenuWindow();
 });
 
 /*
