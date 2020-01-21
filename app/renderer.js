@@ -39,17 +39,17 @@ ipcRenderer.on("main-window-will-be-ready", (event, message) => {
 
 function startLoading() {
   $("div.loading-bar .bar-fill").css("opacity", 1.0);
-  $("div.loading-bar .bar-fill").css("height", "0%");
+  $("div.loading-bar .bar-fill").css("width", "0%");
 }
 
 function setLoading(percentage) {
-  $("div.loading-bar .bar-fill").css("height", percentage + "%");
+  $("div.loading-bar .bar-fill").css("width", percentage + "%");
 }
 
 function stopLoading() {
   setTimeout(function() {
     $("div.loading-bar .bar-fill").css("opacity", 0.0);
-    $("div.loading-bar .bar-fill").css("height", "0%");
+    $("div.loading-bar .bar-fill").css("width", "0%");
   }, 300);
 }
 
@@ -74,6 +74,7 @@ $("div.campaign-list").on("click", ".campaign-list-item.clickable", function() {
   ipcRenderer.send("will-open-campaign", data);
 });
 
+// After will-open-campaign is finished in main the information has to be shown
 ipcRenderer.on("open-campaign", (event, message) => {
   setLoading(50);
   console.log(message);
@@ -189,6 +190,7 @@ ipcRenderer.on("new-campaign-done", (event, data) => {
 ipcRenderer.on("new-campaign-fuck", (event) => {
   $(tempCampaignHTML).remove();
   tempCampaignHTML = null;
+  console.log("Error creating campaign, perhaps one with the same name already exists or the folder couldn't be created.");
 });
 
 /*
@@ -202,6 +204,10 @@ and so have to initiate them in here like they are variables.
 $("#editMainDetails").prop("editing", "false");
 $("#deleteCampaign").prop("confirm", "false");
 
+/*
+This part takes care of making the content of the campaign editable like the
+name, classification, challange rating and descriptions
+*/
 $("#editMainDetails").click(function() {
   switch ($("#editMainDetails").prop("editing")) {
     case "false":
@@ -250,7 +256,13 @@ ipcRenderer.on("edit-campaign-done", (event) => {
 ipcRenderer.on("edit-campaign-fuck", (event) => {
   console.log("Edit Failed Abismally");
 });
-
+/*
+This function waits for the user to click the delete camapaign button. Once
+  clicked the buttton turns to a confirm button. If the user clicks again it
+  will send a trigger to the ipcMain for it to take care of deleting the
+  folder containing the campaign.
+*/
+// For now deleted campaigns need the page to be reloaded to disappear
 $("#deleteCampaign").click(function() {
   /*
    */

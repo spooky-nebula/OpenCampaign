@@ -229,20 +229,6 @@ body {
 .wrapper.campaign-list .campaign-list-item .clickable {
   user-select: none;
 }
-.wrapper.loading-bar {
-  background: #121212;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 0;
-  flex-shrink: 0;
-  width: 10px;
-}
-.wrapper.loading-bar .bar-fill {
-  background: #fff;
-  height: 0;
-  opacity: 0;
-  transition: height 0.3s ease-in, opacity 0.1s;
-}
 .wrapper.main-content {
   align-items: stretch;
   display: flex;
@@ -361,6 +347,23 @@ body {
 }
 .wrapper.main-content .campaign-details .campaign-pages .campaign-pages-list {
   background: #121212;
+}
+.loading-bar {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+.loading-bar .bar-fill {
+  background: #fff;
+  width: 0;
+  opacity: 0;
+  transition: width 0.3s ease-in, opacity 0.1s;
 }
 
 /*# sourceMappingURL=master.css.map */
