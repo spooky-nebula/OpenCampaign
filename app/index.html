@@ -9,6 +9,11 @@
 
 <body>
   <div class="content">
+    <div class="loading-bar">
+      <div class="bar-fill">
+
+      </div>
+    </div>
     <div class="wrapper campaign-list">
       <div class="menu">
         <img class="logo" src="./assets/splash.png" title="Welcome comrade">
@@ -17,29 +22,54 @@
         </div>
         <div class="options">
           <a id="newCampaign" href="#" onclick="return true;">New Campaign</a>
-          <a id="opencampaign" href="#" onclick="return true;">Help</a>
+          <a id="opencampaignHelp" href="#" onclick="return true;">Help</a>
         </div>
       </div>
     </div>
+
     <div class="wrapper main-content">
       <div class="help">
 
       </div>
-      <div class="campaign-details" hidden>
-        <div class="campaign-name">
-          Campaign Name
+      <div class="campaign-details" style="display: none">
+        <div class="campaign-options-main">
+          <p id="editMainDetails" title="Edit the details of this Campaign">🖊 Edit Details</p>
+          <p id="deleteCampaign" title="Delete this Campaign">⭕ Delete Campaign</p>
         </div>
-        <div class="campaign-pages-list">
+        <div class="campaign-main" folderName="">
+          <div class="campaign-name">
+            <label for="campaign-name">Campaign Name</label>
+            <p>Campaign Short Description</p>
+          </div>
+          <div class="spacer">
 
+          </div>
+          <div class="campaign-challenge-rating">
+            <label for="campaign-challengeRating">CR</label>
+            <p>Challenge Rating</p>
+          </div>
+          <div class="campaign-classification">
+            <label for="campaign-classification">Classification</label>
+            <p>Classification</p>
+          </div>
+          <div class="campaign-description">
+            <label for="campaign-description">Description</label>
+            <p>Campaign Description</p>
+          </div>
         </div>
-        <div class="campaign-page-details">
-          Campaign Name
+        <div class="campaign-pages">
+          <div class="campaign-pages-list">
+            Tabs/List
+          </div>
+          <div class="campaign-page-details">
+            Campaign Name
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div id="templates" hidden>
-    <div class="campaign-list-item">
+    <div class="campaign-list-item" folderName="">
       <p class="campaign-list-item-name">TextHere</p>
     </div>
     <div class="loading-splash">

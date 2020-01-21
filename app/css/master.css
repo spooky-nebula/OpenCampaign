@@ -119,18 +119,19 @@ body {
   padding-top: 20px;
   width: 200px;
 }
-.wrapper.campaign-list .menu {
-  margin-bottom: 10px;
-  user-select: none;
-}
-.wrapper.campaign-list .menu:hover .logo {
+.wrapper.campaign-list:hover .menu .logo {
   animation: 1s ease infinite rotation;
 }
-.wrapper.campaign-list .menu:hover .spacer {
+.wrapper.campaign-list:hover .menu .spacer {
   width: 80%;
 }
-.wrapper.campaign-list .menu:hover .options {
-  max-height: 100px;
+.wrapper.campaign-list:hover .menu .options {
+  max-height: 150px;
+}
+.wrapper.campaign-list .menu {
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  user-select: none;
 }
 .wrapper.campaign-list .menu .logo {
   display: block;
@@ -236,15 +237,133 @@ body {
   flex-shrink: 1;
 }
 .wrapper.main-content .campaign-details {
+  align-items: stretch;
   color: #fff;
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
-  height: 180px;
+  position: relative;
 }
-.wrapper.main-content .campaign-pages-list {
+.wrapper.main-content .campaign-details .campaign-options-main {
+  margin: 6px;
+  position: relative;
+}
+.wrapper.main-content .campaign-details .campaign-options-main #editMainDetails {
+  background: #121212;
+  border-radius: 6px;
+  cursor: pointer;
+  float: right;
+  margin: 6px;
+  padding: 6px;
+  text-align: center;
+  transform: scale(1);
+  transition: background 0.3s ease-out;
+  vertical-align: middle;
+}
+.wrapper.main-content .campaign-details .campaign-options-main #editMainDetails:hover {
+  background: #fff !important;
+  color: #343434;
+  transition: background 0.1s ease-out;
+}
+.wrapper.main-content .campaign-details .campaign-options-main #deleteCampaign {
+  background: #121212;
+  border-radius: 6px;
+  cursor: pointer;
+  float: right;
+  margin: 6px;
+  padding: 6px;
+  text-align: center;
+  transform: scale(1);
+  transition: background 0.3s ease-out;
+  vertical-align: middle;
+}
+.wrapper.main-content .campaign-details .campaign-options-main #deleteCampaign:hover {
+  background: #fff !important;
+  color: #343434;
+  transition: background 0.1s ease-out;
+}
+.wrapper.main-content .campaign-details .campaign-main {
+  align-items: flex-start;
   background: #343434;
   color: #fff;
-  flex-grow: 1;
-  height: 180px;
+  display: flex;
+  flex-flow: row wrap;
+  flex-grow: 1 300px;
+}
+.wrapper.main-content .campaign-details .campaign-main div:not(.spacer) {
+  align-items: stretch;
+  background: #343434;
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 12px;
+  padding: 6px;
+}
+.wrapper.main-content .campaign-details .campaign-main div:not(.spacer) p {
+  background: #121212;
+  font-size: 26px;
+  height: 26px;
+  line-height: 26px;
+  padding: 6px;
+}
+.wrapper.main-content .campaign-details .campaign-main div:not(.spacer) label {
+  display: block;
+  font-family: monospace;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 6px;
+  text-align: left;
+}
+.wrapper.main-content .campaign-details .campaign-main div.spacer {
+  flex: 3 0 0;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-name {
+  flex: 1 30%;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-name p {
+  min-width: 200px;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-description {
+  flex: 3 100%;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-description p {
+  width: 400px;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-challenge-rating {
+  flex: 1 15%;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-challenge-rating p {
+  width: 60px;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-classification {
+  flex: 1 20%;
+}
+.wrapper.main-content .campaign-details .campaign-main .campaign-classification p {
+  width: 200px;
+}
+.wrapper.main-content .campaign-details .campaign-pages {
+  background: #343434;
+  color: #fff;
+  flex-grow: 7;
+}
+.wrapper.main-content .campaign-details .campaign-pages .campaign-pages-list {
+  background: #121212;
+}
+.loading-bar {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+.loading-bar .bar-fill {
+  background: #fff;
+  width: 0;
+  opacity: 0;
+  transition: width 0.3s ease-in, opacity 0.1s;
 }
 
 /*# sourceMappingURL=master.css.map */

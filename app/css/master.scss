@@ -154,23 +154,24 @@ body {
     padding-top: 20px;
     width: 200px;
 
-    .menu {
-      margin-bottom: 10px;
-      user-select: none;
-
-      &:hover {
-        .logo {
-          animation: 1s ease infinite rotation;
-        }
-
-        .spacer {
-          width: 80%;
-        }
-
-        .options {
-          max-height: 100px;
-        }
+    &:hover .menu {
+      .logo {
+        animation: 1s ease infinite rotation;
       }
+
+      .spacer {
+        width: 80%;
+      }
+
+      .options {
+        max-height: 150px;
+      }
+    }
+
+    .menu {
+      margin-bottom: 6px;
+      padding-bottom: 6px;
+      user-select: none;
 
       .logo {
         display: block;
@@ -293,16 +294,159 @@ body {
     flex-shrink: 1;
 
     .campaign-details {
+      align-items: stretch;
       color: $primary-color;
+      display: flex;
+      flex-direction: column;
       flex-grow: 1;
-      height: 180px;
-    }
+      position: relative;
 
-    .campaign-pages-list {
-      background: $primary-background-color;
-      color: $primary-color;
-      flex-grow: 1;
-      height: 180px;
+      .campaign-options-main {
+        margin: 6px;
+        position: relative;
+
+        #editMainDetails {
+          background: $secondary-color;
+          border-radius: 6px;
+          cursor: pointer;
+          float: right;
+          margin: 6px;
+          padding: 6px;
+          text-align: center;
+          transform: scale(1);
+          transition: background 0.3s ease-out;
+          vertical-align: middle;
+
+          &:hover {
+            background: $primary-color !important;
+            color: $primary-background-color;
+            transition: background 0.1s ease-out;
+          }
+        }
+
+        #deleteCampaign {
+          background: $secondary-color;
+          border-radius: 6px;
+          cursor: pointer;
+          float: right;
+          margin: 6px;
+          padding: 6px;
+          text-align: center;
+          transform: scale(1);
+          transition: background 0.3s ease-out;
+          vertical-align: middle;
+
+          &:hover {
+            background: $primary-color !important;
+            color: $primary-background-color;
+            transition: background 0.1s ease-out;
+          }
+        }
+      }
+
+      .campaign-main {
+        align-items: flex-start;
+        background: $primary-background-color;
+        color: $primary-color;
+        display: flex;
+        flex-flow: row wrap;
+        flex-grow: 1 300px;
+
+        div {
+          &:not(.spacer) {
+            align-items: stretch;
+            background: $primary-background-color;
+            display: flex;
+            flex-flow: column nowrap;
+            margin: 12px;
+            padding: 6px;
+
+            p {
+              background: $secondary-color;
+              font-size: 26px;
+              height: 26px;
+              line-height: 26px;
+              padding: 6px;
+            }
+
+            label {
+              display: block;
+              font-family: monospace;
+              font-size: 24px;
+              font-weight: bold;
+              padding: 6px;
+              text-align: left;
+            }
+          }
+
+          &.spacer {
+            flex: 3 0 0;
+          }
+        }
+
+        .campaign-name {
+          flex: 1 30%;
+
+          p {
+            min-width: 200px;
+          }
+        }
+
+        .campaign-description {
+          flex: 3 100%;
+
+          p {
+            width: 400px;
+          }
+        }
+
+        .campaign-challenge-rating {
+          flex: 1 15%;
+
+          p {
+            width: 60px;
+          }
+        }
+
+        .campaign-classification {
+          flex: 1 20%;
+
+          p {
+            width: 200px;
+          }
+        }
+      }
+
+      .campaign-pages {
+        background: $primary-background-color;
+        color: $primary-color;
+        flex-grow: 7;
+
+        .campaign-pages-list {
+          background: $secondary-color;
+        }
+
+        .campaign-page-details {}
+      }
     }
+  }
+}
+
+.loading-bar {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  .bar-fill {
+    background: $primary-color;
+    width: 0;
+    opacity: 0;
+    transition: width 0.3s ease-in, opacity 0.1s;
   }
 }

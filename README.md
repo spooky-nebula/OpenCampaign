@@ -1,6 +1,6 @@
 # OpenCampaign
 
-This is my attempt of making a campaign planner for D&D Game Masters
+This is my attempt of making a campaign planner for D&D Game Masters.
 
 Now let's get _This_ straight:
 
@@ -13,7 +13,7 @@ Now let's get _This_ straight:
 
 ### What stage are we in right now?
 
-_ahem_ `git init` :D
+We have completed the foundation of the project application right now. Now all we need is to implement the features in the GitHub boards and expand.
 
 ### Can you depend on this project to be done for your campaign?
 
